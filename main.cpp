@@ -2,7 +2,7 @@
 
 void main(){
 
-	Mat frame = imread("Haze_img.jpg", 1);
+	Mat frame = imread("forest1.jpg", 1);
 	resize(frame, frame, Size(), 0.5, 0.5);
 	Mat darkChannel;
 	Mat T;
@@ -12,7 +12,7 @@ void main(){
 
 	namedWindow("before and after", CV_WINDOW_AUTOSIZE);
 
-	
+
 	//create mat for showing the frame before and after processing
 	Mat beforeafter = Mat::zeros(frame.rows, 2 * frame.cols, CV_8UC3);
 	Rect roil(0, 0, frame.cols, frame.rows);
@@ -34,7 +34,7 @@ void main(){
 
 		Airlight = estimateA(darkChannel);
 		T = estimateTransmission(darkChannel, Airlight);
-		fogfree = ; (fogfree, T, Airlight);
+		fogfree = getDehazed(fogfree, T, Airlight);
 
 #endif
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,7 +61,7 @@ void main(){
 	sprintf(Directory, "[%d. %d. %d] %d½Ã %dºÐ", Timer->tm_year + 1900, Timer->tm_mon + 1, Timer->tm_mday, Timer->tm_hour, Timer->tm_min);
 	mkdir(Directory);
 	char buf[100];
-	sprintf(buf, "%s/Dehaze.jpg",Directory);
+	sprintf(buf, "%s/Dehaze.jpg", Directory);
 	imwrite(buf, beforeafter);
 
 	sprintf(buf, "%s/time.txt", Directory);
@@ -69,8 +69,6 @@ void main(){
 	fprintf(f, "Input width : %d\n", frame.cols);
 	fprintf(f, "Input height : %d\n", frame.rows);
 	fprintf(f, "Spending time : %d ms\n", spending_time);
-
-
 
 }
 

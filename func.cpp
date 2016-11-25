@@ -1,4 +1,5 @@
 #include "func.h"
+
 int getMax(int a, int b){
 	if (a > b)
 		return a;
@@ -59,7 +60,7 @@ Mat getMedianDarkChannel(Mat src, int patch)
 	Mat E = EntropyMap(rgbmin, patch);
 	Mat result;
 	subtract(rgbmin, E, result);
-	
+
 
 	medianBlur(result, MDCP, patch);
 
@@ -73,7 +74,7 @@ int estimateA(Mat DC)
 {
 	double minDC, maxDC;
 	minMaxLoc(DC, &minDC, &maxDC);
-	
+
 	//cout << "estimated airlight is:" << maxDC << endl;
 	return maxDC;
 }
